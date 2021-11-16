@@ -1,0 +1,65 @@
+.App {
+    display: flex;
+}
+
+.message-app {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-list {
+    height: 600px;
+    border: 1px solid black;
+    margin-bottom: 3px;
+    overflow: auto;
+    padding: 5px;
+}
+
+.message-list-full {
+    padding: 2px;
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
+}
+
+.message-list-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.message-list-time {
+    font-size: 12px;
+    color: darkgrey;
+}
+
+.message-list-author {
+    font-style: italic;
+}
+
+.message-send {
+    height: 130px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.message-send-area {
+    height: 50%;
+    width: 75%;
+}
+
+.message-send-button {
+    height: 53%;
+    width: 19%;
+}
+
+.input-author {
+    width: 150px;
+    height: 20px;
+    margin-left: 20px;
+}
+
+.message-send-error {
+    color: red;
+    margin-top: 3px;
+}
