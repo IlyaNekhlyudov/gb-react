@@ -1,74 +1,59 @@
 import './App.css';
-import {useState} from "react";
-import MessageListComponent from "./MessageListComponent";
-import MessageSendComponent from "./MessageSendComponent";
-import MessageAuthorComponent from "./MessageAuthorComponent";
-import AppBarComponent from "./AppBarComponent";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import * as React from "react";
-import {styled} from "@mui/material/styles";
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
+import CyrillicToTranslit from "cyrillic-to-translit-js";
+import ChatsComponent from "./ChatsComponent";
+import ChatLinksComponent from "./ChatLinksComponent";
+import NotFoundComponent from "./NotFoundComponent";
+import ChatsSettingsComponent from "./ChatsSettingsComponent";
 
-const drawerWidth = 240;
+const cyrillicToTranslit = new CyrillicToTranslit();
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginRight: -drawerWidth,
-        ...(open && {
-            transition: theme.transitions.create('margin', {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            marginRight: 0,
-        }),
-    }),
-);
 
 function App() {
-    const [inputText, setInputText] = useState("");
-    const [inputAuthor, setInputAuthor] = useState("");
-    const [messageList, setListOfMessages] = useState([]);
-    const [open, setOpen] = React.useState(false);
+    const [chatList, setChatList] = React.useState(['Беседка', 'Спорт', 'Игры']);
+
+    const generateRoutes = () => {
+        let links = {}, url, transliteratedLink;
+
+        chatList.forEach((el) => {
+            transliteratedLink = cyrillicToTranslit.transform(el).toLowerCase();
+            url = '/chats/' + transliteratedLink;
+            links[url] = el;
+        });
+
+        return links;
+    }
+
+    let links = generateRoutes();
 
     return (
-        <div className="App">
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'row-reverse',
-                    width: '90%'
-                }}
-            >
-                <CssBaseline />
-                <AppBarComponent open={open} setOpen={setOpen} setListOfMessages={setListOfMessages} />
-                <Main
-                    open={open}
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        width: '90%'
-                    }}
-                >
-                    <div className='message-app'>
-                        <MessageListComponent messageList={messageList} inputAuthor={inputAuthor} />
-                        <MessageSendComponent
-                            inputText={inputText}
-                            setInputText={setInputText}
-                            inputAuthor={inputAuthor}
-                            setListOfMessages={setListOfMessages}
-                            messageList={messageList}
+        <BrowserRouter>
+            <div className="App">
+                <Routes>
+                    {Object.keys(links).map((value, index) => (
+                        <Route
+                            key={index}
+                            path={value}
+                            element={<ChatsComponent chatId={index} chatList={chatList} links={links}/>}
                         />
-                    </div>
-                    <MessageAuthorComponent inputAuthor={inputAuthor} setInputAuthor={setInputAuthor} />
-                </Main>
-            </Box>
-        </div>
+                    ))}
+                    <Route path='/chats' element={<ChatsComponent chatId={0} chatList={chatList} />}/>
+                    <Route path='/profile' element={<p>Пустая страница</p>}/>
+                    <Route path='/settings/chats'
+                           element={
+                               <ChatsSettingsComponent chatList={chatList} setChatList={setChatList} />
+                           }
+                    />
+                    <Route path='/' element={<ChatLinksComponent links={links} />}/>
+                    <Route path='*' element ={<NotFoundComponent />} />
+                </Routes>
+            </div>
+        </BrowserRouter>
     );
 }
 
