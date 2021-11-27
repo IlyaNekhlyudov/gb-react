@@ -7,6 +7,8 @@ import SendIcon from '@mui/icons-material/Send';
 
 moment.locale('ru');
 
+let needAnswerFromBot = false;
+
 const MessageSendComponent = ({inputText, setInputText, inputAuthor, setListOfMessages, messageList}) => {
     const textareaRef = useRef(null);
 
@@ -21,8 +23,7 @@ const MessageSendComponent = ({inputText, setInputText, inputAuthor, setListOfMe
 
     // ответ робота
     useEffect(() => {
-        if (messageList.length !== 0
-            && messageList[messageList.length - 1].author === 'Робот') return false;
+        if (!needAnswerFromBot) return false;
 
         const randomText = [
             "привет! Как дела?",
@@ -31,7 +32,9 @@ const MessageSendComponent = ({inputText, setInputText, inputAuthor, setListOfMe
             "сколько тебе лет?"
         ]
 
+
         setTimeout(() => {
+            if (!needAnswerFromBot) return false;
             let name = inputAuthor === '' ? "Аноним" : inputAuthor;
             const message = new Message(
                 "Робот",
@@ -41,7 +44,8 @@ const MessageSendComponent = ({inputText, setInputText, inputAuthor, setListOfMe
             );
             setListOfMessages(prev => [...prev, message]);
             document.getElementById('end-chat').scrollIntoView({behavior: 'smooth'});
-        }, 1500)
+            needAnswerFromBot = false;
+        }, 1500);
 
         document.getElementById('end-chat').scrollIntoView({behavior: 'smooth'});
     }, [messageList]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -54,6 +58,7 @@ const MessageSendComponent = ({inputText, setInputText, inputAuthor, setListOfMe
         setInputText("");
         document.querySelector('textarea').value = '';
         textareaRef.current?.focus();
+        needAnswerFromBot = true;
     }
 
     return (

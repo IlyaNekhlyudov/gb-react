@@ -13,11 +13,10 @@ import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import {styled, useTheme} from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
-import ForumIcon from "@mui/icons-material/Forum";
-import SportsBaseballIcon from "@mui/icons-material/SportsBaseball";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import iconSwitch from "./IconSwitch";
+import {useEffect} from "react";
+import {Link} from "react-router-dom";
 
-const chatList = ['Беседка', 'Спорт', 'Игры'];
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -46,7 +45,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-start',
 }));
 
-const AppBarComponent = ({open, setOpen, setListOfMessages}) => {
+const AppBarComponent = ({open, setOpen, setListOfMessages, chatId, chatList, links}) => {
     const [category, setCategory] = React.useState('Беседка');
     const theme = useTheme();
 
@@ -58,22 +57,15 @@ const AppBarComponent = ({open, setOpen, setListOfMessages}) => {
         setOpen(false);
     };
 
-    const iconSwitch = (text) => {
-        // eslint-disable-next-line default-case
-        switch (text) {
-            case 'Беседка':
-                return <ForumIcon />;
-            case 'Спорт':
-                return <SportsBaseballIcon />;
-            case 'Игры':
-                return <SportsEsportsIcon />;
-        }
-    }
-
     const changeCategory = (text) => {
         setCategory(text);
         setListOfMessages([]);
     }
+
+    useEffect(() => {
+        changeCategory(chatList[chatId]);
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <>
@@ -112,13 +104,17 @@ const AppBarComponent = ({open, setOpen, setListOfMessages}) => {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {chatList.map((text) => (
-                        <ListItemButton key={text} onClick={() => changeCategory(text)}>
-                            <ListItemIcon>
-                                {iconSwitch(text)}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
+                    {Object.keys(links).map((value, index) => (
+                        <Link to={value} key={index} className='test'>
+                            <ListItemButton onClick={() => changeCategory(links[value])}>
+                                <ListItemIcon>
+                                    {iconSwitch(links[value])}
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={links[value]}
+                                />
+                            </ListItemButton>
+                        </Link>
                     ))}
                 </List>
             </Drawer>
