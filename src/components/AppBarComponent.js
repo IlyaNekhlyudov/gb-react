@@ -13,7 +13,7 @@ import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import {styled, useTheme} from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
-import iconSwitch from "./IconSwitch";
+import iconSwitch from "../functions/IconSwitch";
 import {useEffect} from "react";
 import {Link} from "react-router-dom";
 

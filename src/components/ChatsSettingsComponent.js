@@ -34,7 +34,7 @@ const ChatsSettingsComponent = ({chatList, setChatList}) => {
     }
 
     return (
-        <div className='chat-settings'>
+        <div className='template'>
             <div style={{width: '30%', marginBottom: '20vh'}}>
                 <Paper
                     elevation={3}
@@ -47,7 +47,7 @@ const ChatsSettingsComponent = ({chatList, setChatList}) => {
                         borderRadius: '0',
                     }}
                 >
-                    <span className='chat-list-heading-p'>Настройка чатов</span>
+                    <span className='template-heading-p'>Настройка чатов</span>
                 </Paper>
                 <Paper
                     elevation={3}

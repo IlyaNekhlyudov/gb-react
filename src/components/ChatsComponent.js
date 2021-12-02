@@ -1,7 +1,6 @@
 import {useState} from "react";
 import MessageListComponent from "./MessageListComponent";
 import MessageSendComponent from "./MessageSendComponent";
-import MessageAuthorComponent from "./MessageAuthorComponent";
 import AppBarComponent from "./AppBarComponent";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -31,7 +30,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 
 const ChatsComponent = ({chatId, chatList, links}) => {
     const [inputText, setInputText] = useState("");
-    const [inputAuthor, setInputAuthor] = useState("");
     const [messageList, setListOfMessages] = useState([]);
     const [open, setOpen] = React.useState(false);
 
@@ -62,16 +60,14 @@ const ChatsComponent = ({chatId, chatList, links}) => {
                     }}
                 >
                     <div className='message-app'>
-                        <MessageListComponent messageList={messageList} inputAuthor={inputAuthor} />
+                        <MessageListComponent messageList={messageList} />
                         <MessageSendComponent
                             inputText={inputText}
                             setInputText={setInputText}
-                            inputAuthor={inputAuthor}
                             setListOfMessages={setListOfMessages}
                             messageList={messageList}
                         />
                     </div>
-                    <MessageAuthorComponent inputAuthor={inputAuthor} setInputAuthor={setInputAuthor} />
                 </Main>
             </Box>
         </div>

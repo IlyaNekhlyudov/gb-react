@@ -1,7 +1,9 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
+import store from "../store/actions";
 
-const MessageListComponent = ({messageList, inputAuthor}) => {
+const MessageListComponent = ({messageList}) => {
+    let userName = store.getState().name;
 
     /**
      * применяет стили в зависимости от того, кто написал сообщение
@@ -10,7 +12,7 @@ const MessageListComponent = ({messageList, inputAuthor}) => {
      * @returns {string}
      */
     const getProperty = (property, author) => {
-        let someone = !(author === inputAuthor || (inputAuthor === '' && author === 'Аноним'));
+        let someone = !(author === userName || (userName === '' && author === 'Аноним'));
 
         switch (property) {
             case 'alignSelf':

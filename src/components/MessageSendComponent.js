@@ -4,12 +4,13 @@ import "moment/locale/ru";
 import Button from '@mui/material/Button';
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import SendIcon from '@mui/icons-material/Send';
+import store from "../store/actions";
 
 moment.locale('ru');
 
 let needAnswerFromBot = false;
 
-const MessageSendComponent = ({inputText, setInputText, inputAuthor, setListOfMessages, messageList}) => {
+const MessageSendComponent = ({inputText, setInputText, setListOfMessages, messageList}) => {
     const textareaRef = useRef(null);
 
     class Message {
@@ -35,7 +36,7 @@ const MessageSendComponent = ({inputText, setInputText, inputAuthor, setListOfMe
 
         setTimeout(() => {
             if (!needAnswerFromBot) return false;
-            let name = inputAuthor === '' ? "Аноним" : inputAuthor;
+            let name = store.getState().name;
             const message = new Message(
                 "Робот",
                 name
@@ -53,7 +54,7 @@ const MessageSendComponent = ({inputText, setInputText, inputAuthor, setListOfMe
     const SendMessage = () => {
         if (!/\S/g.test(inputText)) return false; // проверка на пустую строку
 
-        const message = new Message(inputAuthor, inputText);
+        const message = new Message(store.getState().name, inputText);
         setListOfMessages(prev => [...prev, message]);
         setInputText("");
         document.querySelector('textarea').value = '';

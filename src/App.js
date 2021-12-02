@@ -6,17 +6,17 @@ import {
     Route
 } from "react-router-dom";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-import ChatsComponent from "./ChatsComponent";
-import ChatLinksComponent from "./ChatLinksComponent";
-import NotFoundComponent from "./NotFoundComponent";
-import ChatsSettingsComponent from "./ChatsSettingsComponent";
+import ChatsComponent from "./components/ChatsComponent";
+import ChatLinksComponent from "./components/ChatLinksComponent";
+import NotFoundComponent from "./components/NotFoundComponent";
+import ChatsSettingsComponent from "./components/ChatsSettingsComponent";
+import ProfileComponent from "./components/ProfileComponent";
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 
 
 function App() {
     const [chatList, setChatList] = React.useState(['Беседка', 'Спорт', 'Игры']);
-
     const generateRoutes = () => {
         let links = {}, url, transliteratedLink;
 
@@ -43,7 +43,7 @@ function App() {
                         />
                     ))}
                     <Route path='/chats' element={<ChatsComponent chatId={0} chatList={chatList} />}/>
-                    <Route path='/profile' element={<p>Пустая страница</p>}/>
+                    <Route path='/profile' element={<ProfileComponent />}/>
                     <Route path='/settings/chats'
                            element={
                                <ChatsSettingsComponent chatList={chatList} setChatList={setChatList} />
