@@ -45,7 +45,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-start',
 }));
 
-const AppBarComponent = ({open, setOpen, setListOfMessages, chatId, chatList, links}) => {
+const AppBarComponent = ({open, setOpen, chatId, chatList, links}) => {
     const [category, setCategory] = React.useState('Беседка');
     const theme = useTheme();
 
@@ -59,7 +59,6 @@ const AppBarComponent = ({open, setOpen, setListOfMessages, chatId, chatList, li
 
     const changeCategory = (text) => {
         setCategory(text);
-        setListOfMessages([]);
     }
 
     useEffect(() => {

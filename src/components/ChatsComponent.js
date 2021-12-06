@@ -6,6 +6,8 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
+import {connect} from "react-redux";
+import {add} from "../store/reducers/messageReducer";
 
 const drawerWidth = 240;
 
@@ -28,9 +30,8 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     }),
 );
 
-const ChatsComponent = ({chatId, chatList, links}) => {
+const ChatsComponent = ({chatId, chatList, links, messageList, addMessage, userName}) => {
     const [inputText, setInputText] = useState("");
-    const [messageList, setListOfMessages] = useState([]);
     const [open, setOpen] = React.useState(false);
 
     return (
@@ -46,7 +47,6 @@ const ChatsComponent = ({chatId, chatList, links}) => {
                 <AppBarComponent
                     open={open}
                     setOpen={setOpen}
-                    setListOfMessages={setListOfMessages}
                     chatId={chatId}
                     chatList={chatList}
                     links={links}
@@ -60,12 +60,14 @@ const ChatsComponent = ({chatId, chatList, links}) => {
                     }}
                 >
                     <div className='message-app'>
-                        <MessageListComponent messageList={messageList} />
+                        <MessageListComponent messageList={messageList} userName={userName} chatId={chatId} />
                         <MessageSendComponent
                             inputText={inputText}
                             setInputText={setInputText}
-                            setListOfMessages={setListOfMessages}
+                            addMessage={addMessage}
                             messageList={messageList}
+                            chatId={chatId}
+                            userName={userName}
                         />
                     </div>
                 </Main>
@@ -74,4 +76,18 @@ const ChatsComponent = ({chatId, chatList, links}) => {
     );
 }
 
-export default ChatsComponent;
+const mapStateToProps = (state) => {
+    return {
+        messageList: state.message.list,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addMessage: (state, action) => {
+            dispatch(add(action));
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatsComponent);

@@ -1,18 +1,17 @@
 import {Button, TextField} from "@mui/material";
-import store from "../store/actions";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
 import {Link} from "react-router-dom";
 import {useRef} from "react";
 
-const renameUser = (name) => {
-    if (!/\S/g.test(name)) return false;
-    store.dispatch({type: 'rename', text: name});
-    return true;
-};
-
-const ProfileComponent = () => {
+const ProfileComponent = ({userName, renameUser}) => {
     const textFieldRef = useRef(null);
+
+    const rename = (name) => {
+        if (!/\S/g.test(name)) return false;
+        renameUser(userName, name);
+        return true;
+    };
 
     return (
         <div className='template'>
@@ -38,7 +37,6 @@ const ProfileComponent = () => {
                         display: 'flex',
                         borderRadius: '0',
                         height: '20vh',
-                        alignItems: 'center',
                         justifyContent: 'center'
                     }}
                 >
@@ -46,20 +44,22 @@ const ProfileComponent = () => {
                         id="input-with-sx"
                         label="Введите имя"
                         variant="standard"
-                        defaultValue={store.getState().name}
+                        defaultValue={userName}
                         inputRef={textFieldRef}
                         sx={{
-                            width: '200px'
+                            width: '200px',
+                            marginTop: '20px'
                         }}
                     />
 
                     <Button
                         variant="outlined"
                         size="small"
-                        onClick={() => {renameUser(textFieldRef.current.value)}}
+                        onClick={() => {rename(textFieldRef.current.value)}}
                         sx={{
                             height: '40px',
-                            marginLeft: '10px'
+                            marginLeft: '10px',
+                            marginTop: '20px'
                         }}
                     >
                         Изменить
