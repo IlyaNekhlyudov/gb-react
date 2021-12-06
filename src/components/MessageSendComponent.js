@@ -4,13 +4,12 @@ import "moment/locale/ru";
 import Button from '@mui/material/Button';
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import SendIcon from '@mui/icons-material/Send';
-import store from "../store/actions";
 
 moment.locale('ru');
 
 let needAnswerFromBot = false;
 
-const MessageSendComponent = ({inputText, setInputText, setListOfMessages, messageList}) => {
+const MessageSendComponent = ({inputText, setInputText, addMessage, messageList, chatId, userName}) => {
     const textareaRef = useRef(null);
 
     class Message {
@@ -19,6 +18,7 @@ const MessageSendComponent = ({inputText, setInputText, setListOfMessages, messa
             this.author = author;
             this.text = text;
             this.date =  moment().format('LTS L');
+            this.chatId = chatId;
         }
     }
 
@@ -36,14 +36,13 @@ const MessageSendComponent = ({inputText, setInputText, setListOfMessages, messa
 
         setTimeout(() => {
             if (!needAnswerFromBot) return false;
-            let name = store.getState().name;
             const message = new Message(
                 "Робот",
-                name
+                userName
                         + ', '
                         + randomText[Math.round(Math.random() * 3)]
             );
-            setListOfMessages(prev => [...prev, message]);
+            addMessage(messageList, message);
             document.getElementById('end-chat').scrollIntoView({behavior: 'smooth'});
             needAnswerFromBot = false;
         }, 1500);
@@ -54,8 +53,8 @@ const MessageSendComponent = ({inputText, setInputText, setListOfMessages, messa
     const SendMessage = () => {
         if (!/\S/g.test(inputText)) return false; // проверка на пустую строку
 
-        const message = new Message(store.getState().name, inputText);
-        setListOfMessages(prev => [...prev, message]);
+        const message = new Message(userName, inputText);
+        addMessage(messageList, message);
         setInputText("");
         document.querySelector('textarea').value = '';
         textareaRef.current?.focus();

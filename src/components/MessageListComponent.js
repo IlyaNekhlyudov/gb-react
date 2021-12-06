@@ -1,10 +1,7 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
-import store from "../store/actions";
 
-const MessageListComponent = ({messageList}) => {
-    let userName = store.getState().name;
-
+const MessageListComponent = ({messageList, userName, chatId}) => {
     /**
      * применяет стили в зависимости от того, кто написал сообщение
      * @param property
@@ -38,11 +35,11 @@ const MessageListComponent = ({messageList}) => {
 
     return (
         <div className='message-list'>
-            {messageList.map((message, i) => (
+            {messageList[chatId].map((el, index) => (
                 <div
-                    key={i}
+                    key={index}
                     style={{
-                        alignSelf: getProperty('alignSelf', message.author),
+                        alignSelf: getProperty('alignSelf', el.author),
                         marginBottom: '20px'
                     }}
                 >
@@ -51,21 +48,21 @@ const MessageListComponent = ({messageList}) => {
                         sx={{
                             padding: '20px',
                             width: 'auto',
-                            backgroundColor: getProperty('backgroundColor', message.author),
-                            color: getProperty('color', message.author),
+                            backgroundColor: getProperty('backgroundColor', el.author),
+                            color: getProperty('color', el.author),
                         }}
                     >
                         <div className='message-list-full'>
                             <div className='message-list-info'>
-                                <div className='message-list-author'>{message.author}</div>
+                                <div className='message-list-author'>{el.author}</div>
                                 <div
                                     className='message-list-time'
                                     style={{
-                                        color: getProperty('time', message.author),
+                                        color: getProperty('time', el.author),
                                     }}
-                                >{message.date}</div>
+                                >{el.date}</div>
                             </div>
-                            <div className='message-list-text'>{message.text}</div>
+                            <div className='message-list-text'>{el.text}</div>
                         </div>
                     </Paper>
                 </div>

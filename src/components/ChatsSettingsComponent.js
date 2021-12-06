@@ -11,22 +11,21 @@ import * as React from "react";
 import {Link} from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useRef} from "react";
+import {add, remove} from "../store/reducers/chatsReducer";
+import {connect} from "react-redux";
+import {addChat, removeChat} from "../store/reducers/messageReducer";
 
-const ChatsSettingsComponent = ({chatList, setChatList}) => {
+const ChatsSettingsComponent = ({chatList, addChat, removeChat}) => {
     const textFieldRef = useRef(null);
 
     const addNewChat = () => {
         if (!/\S/g.test(textFieldRef.current.value)) return false; // проверка на пустую строку
-        setChatList(prev => [...prev, textFieldRef.current.value]);
+        addChat(chatList, textFieldRef.current.value);
         textFieldRef.current.value = '';
     }
 
     const deleteChat = (index) => {
-        let result = chatList.filter((el, id) => {
-           return id !== index;
-        });
-
-        setChatList(result);
+        removeChat(chatList, index);
     }
 
     const checkLengthChat = () => {
@@ -56,20 +55,19 @@ const ChatsSettingsComponent = ({chatList, setChatList}) => {
                         borderRadius: '0',
                     }}
                 >
-                    {chatList.map((value, index) => (
-                            <ListItem
-                                key={index}
-                                secondaryAction={
-                                    <IconButton edge="end" aria-label="Delete" onClick={() => deleteChat(index)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                }
-                                disablePadding
-                            >
-                                <ListItemText id={index} primary={value}/>
-                            </ListItem>
-                        )
-                    )}
+                    {Object.keys(chatList).map((value, index) => (
+                        <ListItem
+                            key={index}
+                            secondaryAction={
+                                <IconButton edge="end" aria-label="Delete" onClick={() => deleteChat(value)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            }
+                            disablePadding
+                        >
+                            <ListItemText id={value} primary={chatList[value]}/>
+                        </ListItem>
+                    ))}
                     {checkLengthChat()}
                     <Divider sx={{marginTop: '20px'}}>Добавить новый чат</Divider>
                     <div
@@ -108,4 +106,17 @@ const ChatsSettingsComponent = ({chatList, setChatList}) => {
     );
 }
 
-export default ChatsSettingsComponent;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addChat: (state, action) => {
+            dispatch(add(action));
+            dispatch(addChat());
+        },
+        removeChat: (state, action) => {
+            dispatch(remove(action));
+            dispatch(removeChat(action));
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ChatsSettingsComponent);
