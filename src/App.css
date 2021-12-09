@@ -1,4 +1,4 @@
-.Chats {
+.chats {
     display: flex;
     justify-content: center;
     min-height: 100vh;
@@ -68,7 +68,13 @@
     color: cornflowerblue;
 }
 
-.test {
+.appbar-links {
     text-decoration: none;
     color: gray;
+}
+
+.chat-navigation {
+    position: absolute;
+    top: 200px;
+    left: 80px;
 }

@@ -13,7 +13,7 @@ import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import {styled, useTheme} from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
-import iconSwitch from "../functions/IconSwitch";
+import iconSwitch from "../../functions/IconSwitch";
 import {useEffect} from "react";
 import {Link} from "react-router-dom";
 
@@ -104,7 +104,7 @@ const AppBarComponent = ({open, setOpen, chatId, chatList, links}) => {
                 <Divider />
                 <List>
                     {Object.keys(links).map((value, index) => (
-                        <Link to={value} key={index} className='test'>
+                        <Link to={value} key={index} className='appbar-links'>
                             <ListItemButton onClick={() => changeCategory(links[value])}>
                                 <ListItemIcon>
                                     {iconSwitch(links[value])}

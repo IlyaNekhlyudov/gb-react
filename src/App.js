@@ -6,23 +6,22 @@ import {
     Route
 } from "react-router-dom";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-import ChatsComponent from "./components/ChatsComponent";
-import ChatLinksComponent from "./components/ChatLinksComponent";
-import NotFoundComponent from "./components/NotFoundComponent";
-import ChatsSettingsComponent from "./components/ChatsSettingsComponent";
+import ChatsComponent from "./components/chats-general/ChatsContainer";
+import ChatLinksComponent from "./components/chat-links/ChatLinksComponent";
+import NotFoundComponent from "./components/not-found/NotFoundComponent";
+import ChatsSettingsComponent from "./components/chats-settings/ChatsSettingsContainer";
 import {connect} from "react-redux";
-import ProfileComponent from "./components/ProfileComponent";
-import {rename} from "./store/reducers/profileReducer";
+import ProfileContainer from "./components/profile/ProfileContainer";
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 
-function App({userName, renameUser, chats}) {
+function App({chats}) {
     const generateRoutes = () => {
         let links = {}, url, transliteratedLink;
 
         Object.keys(chats).forEach((el) => {
             transliteratedLink = cyrillicToTranslit.transform(chats[el]).toLowerCase();
-            url = '/chats/' + transliteratedLink;
+            url = '/chats-general/' + transliteratedLink;
             links[url] = chats[el];
         });
 
@@ -39,13 +38,13 @@ function App({userName, renameUser, chats}) {
                         <Route
                             key={index}
                             path={value}
-                            element={<ChatsComponent chatId={index} chatList={chats} links={links} userName={userName}/>}
+                            element={<ChatsComponent chatId={index} chatList={chats} links={links} />}
                         />
                     ))}
-                    <Route path='/chats' element={<ChatsComponent chatId={0} chatList={chats} userName={userName} />}/>
+                    <Route path='/chats' element={<ChatsComponent chatId={0} chatList={chats} />}/>
                     <Route path='/profile'
                         element={
-                            <ProfileComponent userName={userName} renameUser={renameUser} />
+                            <ProfileContainer />
                         }
                     />
                     <Route path='/settings/chats'
@@ -63,17 +62,8 @@ function App({userName, renameUser, chats}) {
 
 const mapStateToProps = (state) => {
     return {
-        userName: state.profile.name,
         chats: state.chats.list
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        renameUser: (state, action) => {
-            dispatch(rename(action))
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);

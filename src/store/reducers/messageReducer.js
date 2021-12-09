@@ -30,3 +30,9 @@ export const messageSlice = createSlice({
 
 export const { add, addChat, removeChat } = messageSlice.actions;
 export default messageSlice.reducer;
+
+export const addMessage = (messageList, message) => {
+    return (dispatch) => {
+        dispatch(add(message));
+    }
+}
