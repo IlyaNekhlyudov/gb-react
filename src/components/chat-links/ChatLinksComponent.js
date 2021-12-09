@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
 import {Paper, ListItemButton, ListItemText, IconButton} from "@mui/material";
-import iconSwitch from "../functions/IconSwitch";
+import iconSwitch from "../../functions/IconSwitch";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 

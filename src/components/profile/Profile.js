@@ -1,18 +1,9 @@
-import {Button, TextField} from "@mui/material";
 import Paper from "@mui/material/Paper";
-import * as React from "react";
+import {Button, TextField} from "@mui/material";
 import {Link} from "react-router-dom";
-import {useRef} from "react";
+import * as React from "react";
 
-const ProfileComponent = ({userName, renameUser}) => {
-    const textFieldRef = useRef(null);
-
-    const rename = (name) => {
-        if (!/\S/g.test(name)) return false;
-        renameUser(userName, name);
-        return true;
-    };
-
+const Profile = ({textFieldRef, rename, userName}) => {
     return (
         <div className='template'>
             <div style={{width: '30%', marginBottom: '20vh'}}>
@@ -68,9 +59,7 @@ const ProfileComponent = ({userName, renameUser}) => {
             </div>
             <Link to='/'>На главную</Link>
         </div>
-
     );
 }
 
-export default ProfileComponent;
-
+export default Profile;
