@@ -1,7 +1,7 @@
 import Paper from "@mui/material/Paper";
 import {Button, TextField} from "@mui/material";
-import {Link} from "react-router-dom";
 import * as React from "react";
+import Navigation from "../navigation/Navigation";
 
 const Profile = ({textFieldRef, rename, userName}) => {
     return (
@@ -57,7 +57,7 @@ const Profile = ({textFieldRef, rename, userName}) => {
                     </Button>
                 </Paper>
             </div>
-            <Link to='/'>На главную</Link>
+            <Navigation />
         </div>
     );
 }

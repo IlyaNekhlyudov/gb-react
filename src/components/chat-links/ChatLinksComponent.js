@@ -4,12 +4,18 @@ import {Paper, ListItemButton, ListItemText, IconButton} from "@mui/material";
 import iconSwitch from "../../functions/IconSwitch";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Navigation from "../navigation/Navigation";
+import {useEffect} from "react";
 
 const ChatLinksComponent = ({links}) => {
 
     const checkLengthChat = () => {
         if (Object.values(links).length === 0) return (<p>Чатов нет. Создайте новый в разделе настроек.</p>);
     }
+
+    useEffect(() => {
+        document.title = 'Социальная сеть'
+    }, [])
 
     return (
         <div className='template'>
@@ -77,6 +83,7 @@ const ChatLinksComponent = ({links}) => {
                     {checkLengthChat()}
                 </Paper>
             </div>
+            <Navigation />
         </div>
     );
 }

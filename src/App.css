@@ -75,6 +75,35 @@
 
 .chat-navigation {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     top: 200px;
     left: 80px;
+}
+
+.navigation-links > a {
+    margin-left: 10px;
+}
+
+.news {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.news > div {
+    margin-top: 10px;
+}
+
+.news-navigation {
+    margin-bottom: 20px;
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.news-navigation > a {
+    margin-left: 10px;
+    border: 1px solid black;
+    padding: 10px;
+
 }

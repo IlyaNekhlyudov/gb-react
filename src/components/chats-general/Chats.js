@@ -3,9 +3,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AppBarComponent from "../app-bar/AppBarComponent";
 import MessageListComponent from "../message-list/MessageListComponent";
 import MessageSendComponent from "../message-send/MessageSendContainer";
-import {Link} from "react-router-dom";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
+import Navigation from "../navigation/Navigation";
 
 const drawerWidth = 240;
 
@@ -65,7 +65,7 @@ const Chats = ({open, setOpen, inputText, setInputText, chatId, chatList, links,
                     </div>
                 </Main>
             </Box>
-            <Link to='/' className='chat-navigation'>Главная</Link>
+            <Navigation className='chat-navigation' />
         </div>
     );
 }
