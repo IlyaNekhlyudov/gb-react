@@ -5,6 +5,7 @@ import profileReducer from "./reducers/profileReducer";
 import chatsReducer from "./reducers/chatsReducer";
 import messageReducer from "./reducers/messageReducer";
 import thunkMiddleware from "redux-thunk";
+import newsReducer from "./reducers/newsReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -17,6 +18,7 @@ const reducer = combineReducers({
     profile: profileReducer,
     chats: chatsReducer,
     message: messageReducer,
+    news: newsReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

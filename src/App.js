@@ -12,6 +12,7 @@ import NotFoundComponent from "./components/not-found/NotFoundComponent";
 import ChatsSettingsComponent from "./components/chats-settings/ChatsSettingsContainer";
 import {connect} from "react-redux";
 import ProfileContainer from "./components/profile/ProfileContainer";
+import NewsContainer from "./components/news/NewsContainer";
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 
@@ -21,7 +22,7 @@ function App({chats}) {
 
         Object.keys(chats).forEach((el) => {
             transliteratedLink = cyrillicToTranslit.transform(chats[el]).toLowerCase();
-            url = '/chats-general/' + transliteratedLink;
+            url = '/chats/' + transliteratedLink;
             links[url] = chats[el];
         });
 
@@ -52,6 +53,7 @@ function App({chats}) {
                                <ChatsSettingsComponent chatList={chats} />
                            }
                     />
+                    <Route path='/news' element={<NewsContainer />} />
                     <Route path='/' element={<ChatLinksComponent links={links} />}/>
                     <Route path='*' element ={<NotFoundComponent />} />
                 </Routes>
