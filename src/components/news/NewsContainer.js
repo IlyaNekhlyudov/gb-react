@@ -9,7 +9,7 @@ const NewsContainer = ({popularList, needUpdate, getNews, loading, error}) => {
         document.title = 'Новости The New York Times';
 
         if (Object.keys(popularList).length === 0 
-            || needUpdate > new Date()) {
+            || Date.now() > new Date(needUpdate).getTime()) {
             getNews();
         }
 

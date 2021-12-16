@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useRef} from "react";
 import Profile from "./Profile";
-import {rename} from "../../store/reducers/profileReducer";
+import {rename} from "../../../store/reducers/profileReducer";
 import {connect} from "react-redux";
 
 const ProfileContainer = ({userName, renameUser}) => {
