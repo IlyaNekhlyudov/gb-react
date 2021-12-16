@@ -1,7 +1,7 @@
 import Paper from "@mui/material/Paper";
 import {Button, TextField} from "@mui/material";
 import * as React from "react";
-import Navigation from "../navigation/Navigation";
+import NavigationContainer from "../../navigation/NavigationContainer";
 
 const Profile = ({textFieldRef, rename, userName}) => {
     return (
@@ -57,7 +57,7 @@ const Profile = ({textFieldRef, rename, userName}) => {
                     </Button>
                 </Paper>
             </div>
-            <Navigation />
+            <NavigationContainer />
         </div>
     );
 }

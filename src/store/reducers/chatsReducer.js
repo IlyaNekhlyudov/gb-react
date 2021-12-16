@@ -18,8 +18,6 @@ export const chatsSlice = createSlice({
             Object.keys(state.list).forEach((el) => {
                 if (el === action.payload) delete state.list[el];
             })
-
-            console.log(action.payload);
         }
     },
 });

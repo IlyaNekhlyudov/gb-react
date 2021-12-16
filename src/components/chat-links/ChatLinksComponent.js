@@ -4,8 +4,8 @@ import {Paper, ListItemButton, ListItemText, IconButton} from "@mui/material";
 import iconSwitch from "../../functions/IconSwitch";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Navigation from "../navigation/Navigation";
 import {useEffect} from "react";
+import NavigationContainer from "../navigation/NavigationContainer";
 
 const ChatLinksComponent = ({links}) => {
 
@@ -83,7 +83,7 @@ const ChatLinksComponent = ({links}) => {
                     {checkLengthChat()}
                 </Paper>
             </div>
-            <Navigation />
+            <NavigationContainer />
         </div>
     );
 }

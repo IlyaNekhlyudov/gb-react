@@ -1,7 +1,7 @@
 import {Button, Divider, IconButton, ListItem, ListItemText, Paper, TextField} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import * as React from "react";
-import Navigation from "../navigation/Navigation";
+import NavigationContainer from "../navigation/NavigationContainer";
 
 const ChatsSettings = ({chatList, addNewChat, deleteChat, checkLengthChat, textFieldRef}) => {
     return (
@@ -73,7 +73,7 @@ const ChatsSettings = ({chatList, addNewChat, deleteChat, checkLengthChat, textF
                     </div>
                 </Paper>
             </div>
-            <Navigation />
+            <NavigationContainer />
         </div>
     );
 }

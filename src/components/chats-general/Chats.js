@@ -5,7 +5,7 @@ import MessageListComponent from "../message-list/MessageListComponent";
 import MessageSendComponent from "../message-send/MessageSendContainer";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
-import Navigation from "../navigation/Navigation";
+import NavigationContainer from "../navigation/NavigationContainer";
 
 const drawerWidth = 240;
 
@@ -65,7 +65,7 @@ const Chats = ({open, setOpen, inputText, setInputText, chatId, chatList, links,
                     </div>
                 </Main>
             </Box>
-            <Navigation className='chat-navigation' />
+            <NavigationContainer className='chat-navigation' />
         </div>
     );
 }
